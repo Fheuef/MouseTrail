@@ -138,7 +138,7 @@ function updateParticles(p) {
 		//si une particule touche notre glouton
 		if (p.hit(e)) {
 			//on l'enlève du tableau
-			particles.splice(p, 1);
+			particles.splice(particles.indexOf(p), 1);
 		}
 	}
 }
@@ -155,28 +155,26 @@ function drawParticles() {
 	ctx.fillStyle = "#000000";
 	var i = 0;
 	for (var p of particles) {
-		i++;
-		if (i > img.length - 1) {
-			i = 0;
-		}
 		// ctx.beginPath();
 		// ctx.arc(p.pos.x, p.pos.y, 20, 0, 2 * Math.PI);
 		// ctx.fill();
-		ctx.drawImage(img[i], p.pos.x, p.pos.y, 30, 30);
+		ctx.drawImage(img[(i++)%img.length], p.pos.x, p.pos.y, 30, 30);
 	}
 	for (var e of eater) {
 		//changement d'image pour l'animation du glouton
 		animEater++;
-		if (animEater > eaterImg.length - 1) {
-			animEater = 0;
-			t++;
-		}
-		if (t > titouTab.length - 1) {
-			t = 0;
-		}
-		ctx.drawImage(eaterImg[animEater], e.pos.x, e.pos.y, e.size, e.size);
+
+		t = Math.floor(animEater / eaterImg.length);
+		// if (animEater > eaterImg.length - 1) {
+		// 	animEater = 0;
+		// 	t++;
+		// }
+		// if (t > titouTab.length - 1) {
+		// 	t = 0;
+		// }
+		ctx.drawImage(eaterImg[animEater%eaterImg.length], e.pos.x, e.pos.y, e.size, e.size);
 		if (titou) {
-			ctx.drawImage(titouTab[t], e.pos.x, e.pos.y, e.size - 50, e.size - 50);
+			ctx.drawImage(titouTab[t%titouTab.length], e.pos.x, e.pos.y, e.size - 50, e.size - 50);
 		}
 	}
 }
@@ -186,8 +184,10 @@ function update() {
 		moveParticles(p);
 		updateParticles(p);
 	}
-	drawParticles();
+	
 	for (var e of eater) {
 		moveEater(e);
 	}
+	
+	drawParticles();
 }
