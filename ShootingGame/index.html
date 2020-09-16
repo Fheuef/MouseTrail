@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Trail</title>
+	<style>
+		body {
+			margin: 0;
+			overflow: hidden;
+		}
+	</style>
+	<script src="Vector2.js"></script>
+	<script src="particle.js"></script>
+	<script src="ParticleEater.js"></script>
+	<script src="mouseTrail.js"></script>
+</head>
+
+<body onload="init();">
+	<!--Un jeu avec les particules, on tire les particules sur une cible, rebonds acceptés, nb de tirs limités-->
+	<h1>The GAME</h1>
+	<div style="display:none;">
+		<img id="pistol" src="../images/Sixpistols.png">
+	</div>
+	<canvas id="trailCanvas"></canvas>
+</body>
+
+</html>
