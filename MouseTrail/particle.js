@@ -7,22 +7,17 @@ class Particle {
 	constructor(x=0, y=0, radius = defaultRadius, speed = defaultSpeed) {
 		this.pos = new Vector2(x, y);
 		this.vel = new Vector2();
-		this.forces = new Vector2();
 		this.radius = radius;
 		this.speed = speed;
 		this.friction = defaultFriction;
 		this.target = new Vector2();
 		this.color = "hsl(" + Math.random()*360 + ", 100%, 50%)";
 		this.boundsCollision = true;
-		this.ballCollision = true;
-	}
-
-	initForces() {
-		this.forces = new Vector2();
+		this.particleCollision = true;
 	}
 
 	addForce(vel) {
-		this.forces = this.forces.add(vel);
+		this.addMovement(vel.multiply(this.speed));
 	}
 
 	addMovement(vec) {
@@ -34,7 +29,6 @@ class Particle {
 	}
 
 	updatePos() {
-		this.addMovement(this.forces.multiply(this.speed));
 		this.pos = this.pos.add(this.vel);
 	}
 

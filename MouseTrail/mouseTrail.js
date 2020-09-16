@@ -1,4 +1,5 @@
 var tickMs = 22;
+var bounceMult = 0.8;
 
 var trailCanvas;
 var particles;
@@ -15,7 +16,7 @@ function init() {
 
 	trailCanvas.onmousemove = updateMouse;
 	
-	addParticles(15);
+	addParticles(20);
 
 	updateInterval = setInterval(update, tickMs);
 }
@@ -47,12 +48,6 @@ function moveParticles() {
 	}
 }
 
-function startParticlesUpdate() {
-	for (var p of particles) {
-		p.initForces();
-	}
-}
-
 function updateParticles() {
 	for (var p of particles) {
 		p.updatePos();
@@ -64,15 +59,45 @@ function checkBoundsCollisions() {
 		if (!p.boundsCollision)
 			continue;
 
-		if (p.pos.x < p.radius)
-			p.vel.x = Math.abs(p.vel.x);
-		else if (p.pos.x > trailCanvas.width - p.radius)
-			p.vel.x = -Math.abs(p.vel.x);
+		if (p.pos.x < p.radius && p.vel.x < 0)
+			p.vel.x = Math.abs(p.vel.x) * bounceMult;
+		else if (p.pos.x > trailCanvas.width - p.radius && p.vel.x > 0)
+			p.vel.x = -Math.abs(p.vel.x) * bounceMult;
 		
-		if (p.pos.y < p.radius)
-			p.vel.y = Math.abs(p.vel.y);
-		else if (p.pos.y > trailCanvas.height - p.radius)
-			p.vel.y = -Math.abs(p.vel.y);
+		if (p.pos.y < p.radius && p.vel.y < 0)
+			p.vel.y = Math.abs(p.vel.y) * bounceMult;
+		else if (p.pos.y > trailCanvas.height - p.radius && p.vel.y > 0)
+			p.vel.y = -Math.abs(p.vel.y) * bounceMult;
+	}
+}
+
+function checkParticleCollisions() {
+	var i = 0;
+	for (var p of particles) {
+		i++;
+
+		if (!p.particleCollision)
+			continue;
+
+		let others = particles.slice(i);
+		for (var o of others) {
+			if (!o.particleCollision)
+				continue;
+
+			let dif = o.pos.subtract(p.pos);
+			let distance = dif.length();
+			if (distance <= p.radius + o.radius) {
+				let velDif = o.vel.subtract(p.vel).multiply(bounceMult);
+				let pushAway = distance - p.radius - o.radius;
+				let force = velDif.dot(dif) / (distance);
+				let forceVec = dif.divide(distance).multiply(force + pushAway/10);
+
+				let maxSpeed = Math.max(p.speed, o.speed);
+
+				p.addForce(forceVec.divide(maxSpeed));
+				o.addForce(forceVec.divide(-maxSpeed));
+			}
+		}
 	}
 }
 
@@ -89,10 +114,9 @@ function drawParticles() {
 }
 
 function update() {
-	startParticlesUpdate();
-
 	moveParticles();
 	checkBoundsCollisions();
+	checkParticleCollisions();
 	updateParticles();
 	drawParticles();
 }

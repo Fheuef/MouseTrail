@@ -26,4 +26,5 @@ Open the index.html in a browser and you're ready to go !
 ### Incoming changes
 - Better design with CSS changes
 - Other versions and interactions
-- A game based on that
+- A game based on that 
+- Agario with titouan
