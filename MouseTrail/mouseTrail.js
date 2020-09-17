@@ -3,6 +3,7 @@ var bounceMult = 0.8;
 
 var trailCanvas;
 var particles;
+var particleTrails;
 var mousePos;
 var updateInterval;
 
@@ -11,18 +12,31 @@ function init() {
 	trailCanvas.width = window.innerWidth;
 	trailCanvas.height = window.innerHeight;
 	particles = [];
+	particleTrails = [];
 	//mousePos = new Vector2(trailCanvas.width/2, trailCanvas.height/2);
 	mousePos = null;
 
 	trailCanvas.onmousemove = updateMouse;
 	
-	addParticles(20);
+	addParticles(30);
 
 	updateInterval = setInterval(update, tickMs);
 }
 
-function addParticle(part) {
+function addParticle(part, trail = true) {
 	particles.push(part);
+	if (trail)
+		addPartTrail(part);
+}
+
+function addPartTrail(p) {
+	particleTrails.push(new ParticleTrail(p));
+}
+
+function addPartTrailToAll() {
+	for (var p of particles) {
+		addPartTrail(p);
+	}
 }
 
 function addParticles(n) {
@@ -113,10 +127,36 @@ function drawParticles() {
 	}
 }
 
+function drawTrails() {
+	var ctx = trailCanvas.getContext("2d");
+	var oldWidth = ctx.lineWidth;
+
+	for (var trail of particleTrails) {
+		var part = trail.particle;
+		//var lastPos = part.pos;
+		var i = 0;
+		var n = trail.length();
+		var colorS = part.color.replace("hsl", "hsla");
+		ctx.lineWidth = 1;
+		ctx.beginPath();
+		ctx.moveTo(part.pos.x, part.pos.y);
+		for (var pos of trail.move().reverse()) {
+			
+			ctx.lineTo(pos.x, pos.y);
+			ctx.strokeStyle = colorS.replace("%)", "%, " + (1-(i++/n)) + ")");
+			ctx.stroke();
+			//lastPos = pos;
+		}
+	}
+
+	ctx.lineWidth = oldWidth;
+}
+
 function update() {
 	moveParticles();
 	checkBoundsCollisions();
 	checkParticleCollisions();
 	updateParticles();
 	drawParticles();
+	//drawTrails();
 }
