@@ -106,7 +106,11 @@ function drawParticles() {
 		// ctx.drawImage(img[i], p.pos.x, p.pos.y, 30, 30);
 	}
 
-	drawImageRotate(ctx, pistol, 100 + mousePos.x % 200, trailCanvas.height / 2, 300, 200, mousePos.y % 180);
+	var pistolPos = new Vector2(100, trailCanvas.height / 2);
+	var pistolCenter = pistolPos.add(new Vector2(140, 120));
+	var pistolDif = mousePos.subtract(pistolCenter);
+	var pistolAngle = Math.atan2(pistolDif.y, pistolDif.x);
+	drawImageRotate(ctx, pistol, pistolPos.x, pistolPos.y, 300, 200, pistolAngle * 180/Math.PI);
 }
 
 function drawImageRotate(ctx, image, x, y, w, h, degrees) {
