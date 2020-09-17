@@ -189,8 +189,6 @@ function drawSimpleTrails() {
 			ctx.fill();
 		}
 	}
-
-	ctx.lineWidth = oldWidth;
 }
 
 function update() {
