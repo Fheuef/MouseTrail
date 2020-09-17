@@ -67,7 +67,8 @@ function updateMouse(e) {
 	if (mousePos == null)
 		mousePos = new Vector2();
 	
-	mousePos.set(e.pageX, e.pageY);
+	var rect = trailCanvas.getBoundingClientRect();
+	mousePos.set(e.clientX - rect.left, e.clientY - rect.top);
 }
 
 function moveParticles() {

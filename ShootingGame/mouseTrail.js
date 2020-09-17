@@ -59,7 +59,8 @@ function addParticles(n) {
 }
 
 function updateMouse(e) {
-	mousePos.set(e.pageX, e.pageY);
+	var rect = trailCanvas.getBoundingClientRect();
+	mousePos.set(e.clientX - rect.left, e.clientY - rect.top);
 }
 
 function moveParticles(p) {
