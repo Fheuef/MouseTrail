@@ -1,5 +1,9 @@
 var defaultRadius = 20;
+var minRadius = 3;
+var maxRadius = 20;
 var defaultSpeed = 10;
+var minSpeed = 1.25;
+var maxSpeed = 9;
 var defaultFriction = 0.007;
 var movementSmoothness = 1000;
 
@@ -38,5 +42,12 @@ class Particle {
 
 		this.addForce(this.target.subtract(this.pos).divide(movementSmoothness));
 		this.applyFriction();
+	}
+
+	random() {
+		this.radius = Math.random() * (maxRadius - minRadius) + minRadius;
+		this.speed = Math.random() * (maxSpeed - minSpeed) + minSpeed;
+
+		return this;
 	}
 }

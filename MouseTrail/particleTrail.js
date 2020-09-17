@@ -1,4 +1,4 @@
-var defaultLength = 15;
+var defaultLength = 4;
 
 class ParticleTrail {
 	constructor(particle, length = defaultLength) {
@@ -34,5 +34,10 @@ class ParticleTrail {
 	move() {
 		this.addPosition(this.particle.pos);
 		return this.getTrail();
+	}
+
+	reset() {
+		this.positions = [];
+		this.cursor = -1;
 	}
 }
