@@ -178,14 +178,20 @@ function drawSimpleTrails() {
 
 	for (var trail of particleTrails) {
 		var part = trail.particle;
+		var lastPos = part.pos;
 		var i = 0;
 		var n = trail.length();
 		var colorS = part.color.replace("hsl", "hsla");
 
 		for (var pos of trail.move().reverse()) {
+			ctx.fillStyle = colorS.replace("%)", "%, " + (1-(i++/n)) + ")");
 			ctx.beginPath();
 			ctx.arc(pos.x, pos.y, part.radius, 0, 2*Math.PI);
-			ctx.fillStyle = colorS.replace("%)", "%, " + (1-(i++/n)) + ")");
+			//ctx.fill();
+
+			var avgPos = lastPos.add(pos).divide(2);
+			ctx.beginPath();
+			ctx.arc(avgPos.x, avgPos.y, part.radius, 0, 2*Math.PI);
 			ctx.fill();
 		}
 	}
