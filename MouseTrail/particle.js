@@ -36,6 +36,17 @@ class Particle {
 		this.pos = this.pos.add(this.vel);
 	}
 
+	draw(ctx, x = this.pos.x, y = this.pos.y, opacity = 1) {
+		//TODO save opacity
+		ctx.beginPath();
+		ctx.arc(x, y, this.radius, 0, 2*Math.PI);
+		if (opacity == 1)
+			ctx.fillStyle = this.color;
+		else
+			ctx.fillStyle = this.color.replace("hsl", "hsla").replace("%)", "%, " + (1-(i++/n)) + ")");
+		ctx.fill();
+	}
+
 	moveToTarget(target = null) {
 		if (target != null)
 			this.target = target;

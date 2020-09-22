@@ -68,6 +68,15 @@ class particleManager {
 			p.updatePos();
 		}
 	}
+
+	enableTrails(on) {
+		if (this.trailsEnabled != on) {
+			this.trailsEnabled = on;
+			for (var t of this.particleTrails) {
+				t.reset();
+			}
+		}
+	}
 	
 	checkBoundsCollisions() {
 		for (var p of this.particles) {
@@ -135,10 +144,7 @@ class particleManager {
 		var ctx = this.trailCanvas.getContext("2d");
 	
 		for (var p of this.particles) {
-			ctx.beginPath();
-			ctx.arc(p.pos.x, p.pos.y, p.radius, 0, 2*Math.PI);
-			ctx.fillStyle = p.color;
-			ctx.fill();
+			p.draw(ctx)
 		}
 	}
 	
@@ -146,22 +152,7 @@ class particleManager {
 		var ctx = this.trailCanvas.getContext("2d");
 	
 		for (var trail of this.particleTrails) {
-			var part = trail.particle;
-			var lastPos = part.pos;
-			var i = 0;
-			var n = trail.length();
-			var colorS = part.color.replace("hsl", "hsla");
-	
-			for (var pos of trail.move().reverse()) {
-				ctx.fillStyle = colorS.replace("%)", "%, " + (1-(i++/n)) + ")");
-				ctx.beginPath();
-				ctx.arc(pos.x, pos.y, part.radius, 0, 2*Math.PI);
-	
-				var avgPos = lastPos.add(pos).divide(2);
-				ctx.beginPath();
-				ctx.arc(avgPos.x, avgPos.y, part.radius, 0, 2*Math.PI);
-				ctx.fill();
-			}
+			trail.draw(ctx);
 		}
 	}
 	

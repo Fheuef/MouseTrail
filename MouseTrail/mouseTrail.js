@@ -14,10 +14,7 @@ class mouseTrail extends particleManager {
 	keyBinds(event) {
 		switch(event.key) {
 			case 't' :
-				this.trailsEnabled = !this.trailsEnabled;
-				for (var t of this.particleTrails) {
-					t.reset();
-				}
+				this.enableTrails(!this.trailsEnabled);
 				break;
 			case 'c' :
 				this.collisionsEnabled = !this.collisionsEnabled;
