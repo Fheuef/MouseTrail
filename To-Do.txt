@@ -1,0 +1,10 @@
+---GENERAL---
+- e n g l i s h
+- better index page
+
+---ENGINE---
+- tweak trail drawing order ?
+
+---MODES---
+- "drawing mode" ?
+ - few particles, super long trails
