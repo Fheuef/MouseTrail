@@ -18,6 +18,8 @@ class particleManager {
 
 		this.trailCanvas.addEventListener("mousemove", this.updateMouse.bind(this));
 
+		document.addEventListener("keydown", this.keyBinds.bind(this));
+
 		this.start();
 	}
 
