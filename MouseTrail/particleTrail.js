@@ -1,4 +1,4 @@
-var defaultLength = 5;
+var defaultLength = 3;
 var debug = false;
 
 class ParticleTrail {
@@ -57,7 +57,7 @@ class ParticleTrail {
 			ctx.beginPath();
 			ctx.arc(avgPos.x, avgPos.y, part.radius, 0, 2*Math.PI);
 			ctx.fill();
-			
+
 			ctx.globalAlpha = i--/n;
 			ctx.beginPath();
 			ctx.arc(pos.x, pos.y, part.radius, 0, 2*Math.PI);
