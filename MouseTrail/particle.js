@@ -16,6 +16,7 @@ class Particle {
 		this.friction = defaultFriction;
 		this.target = new Vector2();
 		this.color = "hsl(" + Math.random()*360 + ", 100%, 50%)";
+		this.opacity = 1.0;
 		this.boundsCollision = true;
 		this.particleCollision = true;
 	}
@@ -36,15 +37,22 @@ class Particle {
 		this.pos = this.pos.add(this.vel);
 	}
 
-	draw(ctx, x = this.pos.x, y = this.pos.y, opacity = 1) {
-		//TODO save opacity
+	draw(ctx, x = this.pos.x, y = this.pos.y) {
+		var useAlpha = (this.opacity != ctx.globalAlpha);
+		
+		if (useAlpha) {
+			var oldAlpha = ctx.globalAlpha;
+			ctx.globalAlpha = this.opacity;
+		}
+
 		ctx.beginPath();
 		ctx.arc(x, y, this.radius, 0, 2*Math.PI);
-		if (opacity == 1)
-			ctx.fillStyle = this.color;
-		else
-			ctx.fillStyle = this.color.replace("hsl", "hsla").replace("%)", "%, " + (1-(i++/n)) + ")");
+		ctx.fillStyle = this.color;
 		ctx.fill();
+
+		if (useAlpha) {
+			ctx.globalAlpha = oldAlpha;
+		}
 	}
 
 	moveToTarget(target = null) {
