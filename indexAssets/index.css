@@ -111,6 +111,7 @@ body {
 }
 
 .game {
+	background: linear-gradient(111deg, rgba(51,52,53,0.2133987384016106) 0%, rgba(130,131,131,0.5495331921831232) 66%, rgba(161,161,161,0.9192810913427871) 100%); 
 	background-color: rgb(51, 52, 53);
 	border-radius: 0.8em;
 	display: table;
