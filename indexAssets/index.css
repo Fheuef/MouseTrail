@@ -1,0 +1,162 @@
+@font-face {
+	font-family: Rubik;
+	src: url("fonts/Rubik-ExtraBold.ttf");
+	font-weight: 800;
+}
+
+@font-face {
+	font-family: Rubik;
+	src: url("fonts/Rubik-Bold.ttf");
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: Rubik;
+	src: url("fonts/Rubik-Regular.ttf");
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: Rubik;
+	src: url("fonts/Rubik-Light.ttf");
+	font-weight: 200;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url("fonts/Roboto-Bold.ttf");
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url("fonts/Roboto-Regular.ttf");
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url("fonts/Roboto-Light.ttf");
+	font-weight: 200;
+}
+
+@font-face {
+	font-family: BalooTammudu2;
+	src: url("fonts/BalooTammudu2-ExtraBold.ttf");
+	font-weight: 800;
+}
+
+@font-face {
+	font-family: BalooTammudu2;
+	src: url("fonts/BalooTammudu2-Bold.ttf");
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: BalooTammudu2;
+	src: url("fonts/BalooTammudu2-SemiBold.ttf");
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: BalooTammudu2;
+	src: url("fonts/BalooTammudu2-Medium.ttf");
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: BalooTammudu2;
+	src: url("fonts/BalooTammudu2-Regular.ttf");
+	font-weight: 400;
+}
+
+body {
+	margin: 0;
+}
+
+#titleBar {
+	background-color: rgb(23, 23, 24);
+	text-align: center;
+	padding: 12em;
+	margin-bottom: 2em;
+	-webkit-box-shadow: 0px 12px 28px 1px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 12px 28px 1px rgba(0,0,0,0.75);
+	box-shadow: 0px 12px 28px 1px rgba(0,0,0,0.75);
+}
+
+#titleBar h1 {
+	color: rgb(241, 241, 241);
+	margin: 0;
+	font-size: 6em;
+	letter-spacing: 0.2em;
+	font-family: 'Rubik', sans-serif;
+	font-weight: 400;
+}
+
+#titleBar h2 {
+	color: rgb(197, 197, 197);
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	font-size: 3em;
+	font-family: 'Roboto';
+	font-weight: 200;
+	padding-top: 0.8em;
+	padding-bottom: 0.1em;
+	margin: 0;
+}
+
+.gamesList {
+	margin: 0 auto;
+	padding: 0.1px 0;
+	width: 60%;
+}
+
+.game {
+	background-color: rgb(51, 52, 53);
+	border-radius: 0.8em;
+	display: table;
+	padding: 0.6em;
+	margin: 2em 0.7em;
+	transition: 0.3s;
+	text-decoration: none;
+}
+
+.game:hover {
+	background-color: rgb(100, 102, 104);
+	padding: 1.4em;
+}
+
+.icon {
+	display: table-cell;
+	padding-right: 1.5em;
+	padding: 0.5em 1.5em 0.5em 1em;
+}
+
+.icon img {
+	height: 8em;
+	border-radius: 30%;
+}
+
+.description {
+	display: table-cell;
+	vertical-align: middle;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.description h4 {
+	color: rgb(240, 240, 240);
+	font-family: 'BalooTammudu2';
+	font-weight: 500;
+	font-size: 2em;
+	margin: 0em 0 0em 0;
+}
+
+.description p {
+	color: rgb(211, 211, 211);
+	font-family: 'Roboto';
+	font-weight: normal;
+	font-size: 1.25em;
+	margin: 0;
+	transform: translateY(-0.7em);
+	word-wrap: break-word;
+}

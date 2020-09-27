@@ -4,7 +4,10 @@
 
 ---ENGINE---
 - tweak trail drawing order ?
+- modular / customizable trails & general system
 
 ---MODES---
 - "drawing mode" ?
  - few particles, super long trails
+- fireworks
+- text / drawings formation
