@@ -2,9 +2,11 @@
 - e n g l i s h
 
 ---ENGINE---
-- tweak trail drawing order ?
+- click events
 - border collisions : push from border
+- tweak collisions (less jittering)
 
 ---MODES---
 - fireworks
 - text / drawings formation
+- canon shotting balls at stuff + gravity
