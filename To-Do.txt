@@ -3,6 +3,7 @@
 
 ---ENGINE---
 - tweak trail drawing order ?
+- border collisions : push from border
 
 ---MODES---
 - fireworks
