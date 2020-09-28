@@ -1,7 +1,7 @@
 class mouseTrail extends particleManager {
 	start() {
 		defaultLength = 2;
-		trailPrecision = 15;
+		trailPrecision = 10;
 		trailFadeOut = false;
 		this.clearOnUpdate = false;
 

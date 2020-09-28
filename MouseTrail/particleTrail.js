@@ -1,4 +1,4 @@
-var defaultLength = 3;
+var defaultLength = 4;
 var trailPrecision = 2;
 var trailFadeOut = true;
 
@@ -49,26 +49,17 @@ class ParticleTrail {
 		ctx.fillStyle = part.color;
 
 		for (var pos of this.move()) {
-			// var avgPos = lastPos.add(pos).divide(2);
-
 			let step = new Vector2();
 			for (let j = 1; j <= this.precision; j++) {
 				if (this.fadeOut)
 					ctx.globalAlpha = i--/n;
 
+				let radMult = 0.5*(i/n) + 0.5;
 				ctx.beginPath();
 				step = lastPos.lerp(pos, j / this.precision);
-				ctx.arc(step.x, step.y, part.radius, 0, 2*Math.PI);
+				ctx.arc(step.x, step.y, part.radius * radMult, 0, 2*Math.PI);
 				ctx.fill();
 			}
-
-
-			// if (this.fadeOut)
-			// 	ctx.globalAlpha = i--/n;
-
-			// ctx.beginPath();
-			// ctx.arc(pos.x, pos.y, part.radius, 0, 2*Math.PI);
-			// ctx.fill();
 
 			lastPos = pos;
 		}
