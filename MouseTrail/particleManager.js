@@ -15,6 +15,8 @@ class particleManager {
 		this.particles = [];
 		this.particleTrails = [];
 		this.mousePos = null;
+		this.pause = false;
+		this.clearOnUpdate = true;
 
 		this.trailCanvas.addEventListener("mousemove", this.updateMouse.bind(this));
 
@@ -131,7 +133,8 @@ class particleManager {
 	}
 	
 	draw() {
-		this.clearScreen();
+		if (this.clearOnUpdate)
+			this.clearScreen();
 	
 		if (this.trailsEnabled) {
 			this.drawTrails();
@@ -157,15 +160,17 @@ class particleManager {
 	}
 	
 	updateBase() {
-		this.update();
-		this.checkBoundsCollisions();
-	
-		if (this.collisionsEnabled)
-			this.checkParticleCollisions();
-	
-		this.updateParticles();
+		if (!this.pause) {
+			this.update();
+			this.checkBoundsCollisions();
+		
+			if (this.collisionsEnabled)
+				this.checkParticleCollisions();
+		
+			this.updateParticles();
 
-		this.draw();
+			this.draw();
+		}
 	}
 
 	update() {

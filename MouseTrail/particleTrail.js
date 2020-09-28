@@ -1,5 +1,6 @@
 var defaultLength = 3;
-var debug = false;
+var trailPrecision = 2;
+var trailFadeOut = true;
 
 class ParticleTrail {
 	constructor(particle, length = defaultLength) {
@@ -7,16 +8,12 @@ class ParticleTrail {
 		this.positions = [];
 		this.maxLength = length;
 		this.cursor = 0;
+		this.fadeOut = trailFadeOut;
+		this.precision = trailPrecision;
 	}
 
 	moveCursor() {
 		this.cursor = mod(this.cursor - 1, this.length);
-		if (!debug) {
-			debug = true;
-		}
-		if (debug) {
-			console.log(this.cursor);
-		}
 	}
 
 	addPosition(pos) {
@@ -45,23 +42,33 @@ class ParticleTrail {
 	draw(ctx) {
 		var part = this.particle;
 		var lastPos = part.pos;
-		var n = this.length * 2;
+		var n = this.length * this.precision;
 		var i = n;
 		var oldAlpha = ctx.globalAlpha;
 
 		ctx.fillStyle = part.color;
 
 		for (var pos of this.move()) {
-			var avgPos = lastPos.add(pos).divide(2);
-			ctx.globalAlpha = i--/n;
-			ctx.beginPath();
-			ctx.arc(avgPos.x, avgPos.y, part.radius, 0, 2*Math.PI);
-			ctx.fill();
+			// var avgPos = lastPos.add(pos).divide(2);
 
-			ctx.globalAlpha = i--/n;
-			ctx.beginPath();
-			ctx.arc(pos.x, pos.y, part.radius, 0, 2*Math.PI);
-			ctx.fill();
+			let step = new Vector2();
+			for (let j = 1; j <= this.precision; j++) {
+				if (this.fadeOut)
+					ctx.globalAlpha = i--/n;
+
+				ctx.beginPath();
+				step = lastPos.lerp(pos, j / this.precision);
+				ctx.arc(step.x, step.y, part.radius, 0, 2*Math.PI);
+				ctx.fill();
+			}
+
+
+			// if (this.fadeOut)
+			// 	ctx.globalAlpha = i--/n;
+
+			// ctx.beginPath();
+			// ctx.arc(pos.x, pos.y, part.radius, 0, 2*Math.PI);
+			// ctx.fill();
 
 			lastPos = pos;
 		}

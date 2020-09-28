@@ -42,6 +42,10 @@ class Vector2 {
 		return this.divide(n);
 	}
 
+	lerp(vec, n) {
+		return vec.multiply(n).add(this.multiply(1-n));
+	}
+
 	clampLength(n) {
 		let len = this.length();
 		if (len > n)
