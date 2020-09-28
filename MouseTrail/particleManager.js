@@ -8,6 +8,7 @@ class particleManager {
 		this.bounceMult = 0.8;
 		this.trailsEnabled = true;
 		this.collisionsEnabled = true;
+		this.backgroundColor = "#222";
 
 		this.trailCanvas = document.getElementById("trailCanvas");
 		this.trailCanvas.width = window.innerWidth;
@@ -21,6 +22,8 @@ class particleManager {
 		this.trailCanvas.addEventListener("mousemove", this.updateMouse.bind(this));
 
 		document.addEventListener("keydown", this.keyBinds.bind(this));
+
+		this.drawBackground();
 
 		this.start();
 	}
@@ -126,34 +129,39 @@ class particleManager {
 			}
 		}
 	}
+
+	drawBackground(ctx = this.trailCanvas.getContext("2d")) {
+		ctx.fillStyle = "#222";
+		ctx.fillRect(0, 0, this.trailCanvas.width, this.trailCanvas.height);
+	}
 	
 	clearScreen() {
 		var ctx = this.trailCanvas.getContext("2d");
 		ctx.clearRect(0, 0, this.trailCanvas.width, this.trailCanvas.height);
+		this.drawBackground(ctx);
 	}
 	
 	draw() {
-		if (this.clearOnUpdate)
+		var ctx = this.trailCanvas.getContext("2d")
+
+		if (this.clearOnUpdate) {
 			this.clearScreen();
-	
-		if (this.trailsEnabled) {
-			this.drawTrails();
 		}
 	
-		this.drawParticles();
+		if (this.trailsEnabled) {
+			this.drawTrails(ctx);
+		}
+	
+		this.drawParticles(ctx);
 	}
 	
-	drawParticles() {
-		var ctx = this.trailCanvas.getContext("2d");
-	
+	drawParticles(ctx = this.trailCanvas.getContext("2d")) {	
 		for (var p of this.particles) {
 			p.draw(ctx)
 		}
 	}
 	
-	drawTrails() {
-		var ctx = this.trailCanvas.getContext("2d");
-	
+	drawTrails(ctx = this.trailCanvas.getContext("2d")) {
 		for (var trail of this.particleTrails) {
 			trail.draw(ctx);
 		}

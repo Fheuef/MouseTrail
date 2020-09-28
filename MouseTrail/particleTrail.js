@@ -1,4 +1,4 @@
-var defaultLength = 4;
+var defaultLength = 3;
 var trailPrecision = 2;
 var trailFadeOut = true;
 
