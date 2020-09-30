@@ -23,6 +23,9 @@ class particleManager {
 
 		document.addEventListener("keydown", this.keyBinds.bind(this));
 
+		document.addEventListener("mousedown", this.mouseDown.bind(this));
+		document.addEventListener("mouseup", this.mouseUp.bind(this));
+
 		this.drawBackground();
 
 		this.start();
@@ -33,6 +36,14 @@ class particleManager {
 	}
 
 	keyBinds(event) {
+
+	}
+
+	mouseDown(event) {
+
+	}
+
+	mouseUp(event) {
 
 	}
 
@@ -84,19 +95,30 @@ class particleManager {
 	}
 	
 	checkBoundsCollisions() {
+		let bMult = this.bounceMult / 2;
 		for (var p of this.particles) {
 			if (!p.boundsCollision)
 				continue;
+
+			let nextPos = p.pos.add(p.vel);
 	
-			if (p.pos.x < p.radius && p.vel.x < 0)
-				p.vel.x = Math.abs(p.vel.x) * this.bounceMult;
-			else if (p.pos.x > trailCanvas.width - p.radius && p.vel.x > 0)
-				p.vel.x = -Math.abs(p.vel.x) * this.bounceMult;
+			if (nextPos.x < p.radius && p.vel.x < 0) {
+				p.pos.x = p.radius;
+				p.vel.x = Math.abs(p.vel.x) * bMult;
+			}
+			else if (nextPos.x > trailCanvas.width - p.radius && p.vel.x > 0){
+				p.pos.x = trailCanvas.width - p.radius;
+				p.vel.x = -Math.abs(p.vel.x) * bMult;
+			}
 			
-			if (p.pos.y < p.radius && p.vel.y < 0)
-				p.vel.y = Math.abs(p.vel.y) * this.bounceMult;
-			else if (p.pos.y > trailCanvas.height - p.radius && p.vel.y > 0)
-				p.vel.y = -Math.abs(p.vel.y) * this.bounceMult;
+			if (nextPos.y < p.radius && p.vel.y < 0) {
+				p.pos.y = p.radius;
+				p.vel.y = Math.abs(p.vel.y) * bMult;
+			}
+			else if (nextPos.y > trailCanvas.height - p.radius && p.vel.y > 0) {
+				p.pos.y = trailCanvas.height - p.radius;
+				p.vel.y = -Math.abs(p.vel.y) * bMult;
+			}
 		}
 	}
 	
