@@ -5,18 +5,23 @@ class mouseTrail extends particleManager {
 		minRadius = 12;
 		maxRadius = 50;
 
-		this.pushMult = 50000;
+		this.pushMult = 20000;
+
+		this.pushing = false;
 
 		this.gravity = 1;
 		this.gravVec = new Vector2(0, this.gravity);
 
-		this.addParticles(100);
+		this.addParticles(400);
 	}
 
 	update() {
 		for (var p of this.particles) {
 			p.addMovement(this.gravVec);
 		}
+
+		if (this.pushing)
+			this.pushParticles();
 	}
 
 	pushParticles() {
@@ -44,7 +49,15 @@ class mouseTrail extends particleManager {
 	mouseDown(event) {
 		switch(event.button) {
 			case 0:
-				this.pushParticles();
+				this.pushing = true;
+				break;
+		}
+	}
+
+	mouseUp(event) {
+		switch(event.button) {
+			case 0:
+				this.pushing = false;
 				break;
 		}
 	}
