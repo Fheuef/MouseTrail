@@ -18,6 +18,8 @@ class particleManager {
 		this.mousePos = null;
 		this.pause = false;
 		this.clearOnUpdate = true;
+		this.collisionMult = 1.7;
+		this.collisionsPushMult = 0.00005;
 
 		this.trailCanvas.addEventListener("mousemove", this.updateMouse.bind(this));
 
@@ -95,7 +97,7 @@ class particleManager {
 	}
 	
 	checkBoundsCollisions() {
-		let bMult = this.bounceMult / 2;
+		let bMult = this.bounceMult * 0.85;
 		for (var p of this.particles) {
 			if (!p.boundsCollision)
 				continue;
@@ -129,24 +131,38 @@ class particleManager {
 	
 			if (!p.particleCollision)
 				continue;
+
+			let pNext = p.pos.add(p.vel);
+			let m1 = 1/p.speed;
 	
 			let others = this.particles.slice(i);
 			for (var o of others) {
 				if (!o.particleCollision)
 					continue;
+
+				let oNext = o.pos.add(o.vel);
 	
-				let dif = o.pos.subtract(p.pos);
-				let distance = dif.length();
-				if (distance <= p.radius + o.radius) {
-					let velDif = o.vel.subtract(p.vel).multiply(this.bounceMult);
+				let dif = oNext.subtract(pNext);
+				// let dif = o.pos.subtract(p.pos);
+				if (dif.length2() <= Math.pow(p.radius + o.radius, 2)) {
+					let distance = dif.length();
+					let difDir = dif.divide(distance);
+					let velDif = o.vel.subtract(p.vel);
 					let pushAway = distance - p.radius - o.radius;
-					let force = velDif.dot(dif) / (distance);
-					let forceVec = dif.divide(distance).multiply(force + pushAway/10);
-	
-					let maxSpeed = Math.max(p.speed, o.speed);
-	
-					p.addForce(forceVec.divide(maxSpeed));
-					o.addForce(forceVec.divide(-maxSpeed));
+					let force = velDif.dot(dif) / distance;
+
+					if (force < 0) {
+						let forceVec = difDir.multiply(force);
+						let m2 = 1/o.speed;
+						let r = this.collisionMult/(m1+m2);
+		
+						p.addMovement(forceVec.multiply(m2*r));
+						o.addMovement(forceVec.multiply(-m1*r));
+					}
+
+					let pushVec = difDir.multiply(Math.pow(pushAway, 2) * this.collisionsPushMult);
+					p.addForce(pushVec.negative());
+					o.addForce(pushVec);
 				}
 			}
 		}

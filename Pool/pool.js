@@ -12,7 +12,7 @@ class mouseTrail extends particleManager {
 		this.gravity = 1;
 		this.gravVec = new Vector2(0, this.gravity);
 
-		this.addParticles(400);
+		this.addParticles(300);
 	}
 
 	update() {

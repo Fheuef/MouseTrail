@@ -13,6 +13,10 @@ class Vector2 {
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}
 
+	length2() {
+		return this.x * this.x + this.y * this.y;
+	}
+
 	add(vec) {
 		return new Vector2(this.x + vec.x, this.y + vec.y);
 	}
