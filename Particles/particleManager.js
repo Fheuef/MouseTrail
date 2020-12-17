@@ -72,6 +72,22 @@ class particleManager {
 			this.addParticle(new Particle(x, y).random());
 		}
 	}
+
+	remove(part) {
+		var ind = this.particles.indexOf(part);
+
+		if (ind != -1) {
+			let trails = this.particleTrails;
+			for (let i = 0; i < trails.length; i++) {
+				if (trails[i].particle == part) {
+					this.particleTrails.splice(i, 1);
+					break;
+				}
+			}
+
+			this.particles.splice(ind, 1);
+		}
+	}
 	
 	updateMouse(e) {
 		if (this.mousePos == null)
