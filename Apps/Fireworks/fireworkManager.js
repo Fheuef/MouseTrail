@@ -1,7 +1,12 @@
-var fireworkInterval = 800;
+var fireworkInterval = 600;
+var fwkMinForce = 15;
+var fwkMaxForce = 20;
 
 class mouseTrail extends particleManager {
 	start() {
+		minRadius = 5;
+		maxRadius = 8;
+		
 		var maxHeight = this.trailCanvas.height
 		Firework.maxHeight = maxHeight;
 
@@ -38,21 +43,23 @@ class mouseTrail extends particleManager {
 	}
 
 	mouseDown() {
-		this.addFireworkBoom(this.mousePos.x, this.mousePos.y, 10);
+		this.addFireworkBoom(this.mousePos.x, this.mousePos.y, 15);
 	}
 
 	addFirework() {
-		this.addParticle(new Firework(Math.random() * this.trailCanvas.width));
+		if (!this.pause)
+			this.addParticle(new Firework(Math.random() * this.trailCanvas.width));
 	}
 
 	addFireworkBoom(x, y, count) {
 		for (let i = 0; i < count; i++) {
-			var force = Math.random() * 10 + 10;
+			var force = Math.random() * (fwkMaxForce - fwkMinForce) + fwkMinForce;
 
 			var ang = Math.random() * Math.PI * 2;
 
 			var part = new FireworkPart(x, y);
 			part.vel = new Vector2(Math.cos(ang), Math.sin(ang)).multiply(force);
+			part.boundsCollision = false;
 
 			this.addParticle(part);
 		}
