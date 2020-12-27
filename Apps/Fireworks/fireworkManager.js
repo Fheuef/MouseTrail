@@ -17,6 +17,11 @@ class mouseTrail extends particleManager {
 			if (p.pos.y > this.trailCanvas.height + p.radius + 150) {
 				toDelete.push(p);
 			}
+
+			if (p instanceof Firework && !p.active) {
+				toDelete.push(p);
+				this.addFireworkBoom(p.pos.x, p.pos.y, 10);
+			}
 		}
 
 		for (var p of toDelete) {
@@ -32,7 +37,24 @@ class mouseTrail extends particleManager {
 		}
 	}
 
+	mouseDown() {
+		this.addFireworkBoom(this.mousePos.x, this.mousePos.y, 10);
+	}
+
 	addFirework() {
 		this.addParticle(new Firework(Math.random() * this.trailCanvas.width));
+	}
+
+	addFireworkBoom(x, y, count) {
+		for (let i = 0; i < count; i++) {
+			var force = Math.random() * 10 + 10;
+
+			var ang = Math.random() * Math.PI * 2;
+
+			var part = new FireworkPart(x, y);
+			part.vel = new Vector2(Math.cos(ang), Math.sin(ang)).multiply(force);
+
+			this.addParticle(part);
+		}
 	}
 }
