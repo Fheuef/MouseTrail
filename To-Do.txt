@@ -7,11 +7,11 @@
 - seamless trail deletion
 - replace particle "speed" with mass (oof)
  -- fix a bunch of silly shit
-  - variable ranges
+  - variable scopes
   - namespaces (case mostly)
   - include manager in particles to move some functions in there
-  - just less awkard stuff in general
+  - just less awkward stuff in general
 
 ---MODES---
 - text / drawings formation
-- canon shotting balls at stuff + gravity
+- canon shooting balls at stuff + gravity
