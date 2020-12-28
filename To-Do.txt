@@ -1,12 +1,17 @@
 ---GENERAL---
-- e n g l i s h
+- better name ?
+- actual project presention
 
 ---ENGINE---
-- click events
-- border collisions : push from border
-- tweak collisions (less jittering)
+- better collisions (less jittering)
+- seamless trail deletion
+- replace particle "speed" with mass (oof)
+ -- fix a bunch of silly shit
+  - variable ranges
+  - namespaces (case mostly)
+  - include manager in particles to move some functions in there
+  - just less awkard stuff in general
 
 ---MODES---
-- fireworks
 - text / drawings formation
 - canon shotting balls at stuff + gravity
